@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 6%;
+  --foreground: 210 20% 96%;
+  --card: 222 39% 10%;
+  --card-foreground: 210 20% 96%;
+  --primary: 163 93% 54%;
+  --primary-foreground: 222 47% 8%;
+  --secondary: 218 28% 16%;
+  --secondary-foreground: 210 20% 96%;
+  --muted: 220 24% 14%;
+  --muted-foreground: 214 16% 72%;
+  --accent: 24 95% 63%;
+  --accent-foreground: 222 47% 8%;
+  --border: 219 20% 20%;
+  --input: 219 20% 20%;
+  --ring: 163 93% 54%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(0, 255, 194, 0.08), transparent 25%),
+    radial-gradient(circle at top right, rgba(255, 149, 77, 0.08), transparent 22%),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-source-sans-3), sans-serif;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(18px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400% 100%;
+}
