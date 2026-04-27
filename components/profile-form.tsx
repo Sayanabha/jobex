@@ -157,22 +157,28 @@ export function ProfileForm({
           <Input
             value={profile.currentRole}
             onChange={(event) => updateProfile("currentRole", event.target.value)}
+            placeholder="e.g. Support Engineer"
           />
         </label>
+
         <label className="space-y-2 text-sm">
           <span className="text-muted-foreground">Target role</span>
-          <select
-            className="flex h-11 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-sm"
+          <Input
+            list="target-role-suggestions"
             value={profile.targetRole}
             onChange={(event) => updateProfile("targetRole", event.target.value)}
-          >
+            placeholder="e.g. Machine Learning Engineer"
+          />
+          <datalist id="target-role-suggestions">
             {targetRoles.map((role) => (
-              <option key={role} value={role} className="bg-slate-950">
-                {role}
-              </option>
+              <option key={role} value={role} />
             ))}
-          </select>
+          </datalist>
+          <p className="text-xs text-muted-foreground">
+            Pick a suggestion or type any role you want.
+          </p>
         </label>
+
         <label className="space-y-2 text-sm">
           <span className="text-muted-foreground">Experience level</span>
           <select
@@ -187,6 +193,7 @@ export function ProfileForm({
             ))}
           </select>
         </label>
+
         <label className="space-y-2 text-sm">
           <span className="text-muted-foreground">Years of experience</span>
           <Input
@@ -195,6 +202,7 @@ export function ProfileForm({
             onChange={(event) => updateProfile("yearsOfExperience", Number(event.target.value))}
           />
         </label>
+
         <label className="space-y-2 text-sm md:col-span-2">
           <span className="text-muted-foreground">Skills (comma-separated)</span>
           <Input
@@ -202,15 +210,14 @@ export function ProfileForm({
             onChange={(event) => setSkillsDraft(event.target.value)}
             onBlur={commitSkillsDraft}
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                commitSkillsDraft();
-              }
+              if (event.key === "Enter") commitSkillsDraft();
             }}
           />
           <p className="text-xs text-muted-foreground">
             Type naturally here. Spaces and commas are welcome guests now.
           </p>
         </label>
+
         <label className="space-y-2 text-sm md:col-span-2">
           <span className="text-muted-foreground">Mini bio</span>
           <Textarea
@@ -219,6 +226,7 @@ export function ProfileForm({
             placeholder="Tell jobex who you are without sounding like a LinkedIn carousel."
           />
         </label>
+
         <div className="md:col-span-2">
           <Button onClick={saveProfile} disabled={saving}>
             {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
