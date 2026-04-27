@@ -8,6 +8,7 @@ import { LoadingScene } from "@/components/loading-scene";
 import { ProfileForm } from "@/components/profile-form";
 import { ResumeReviewer } from "@/components/resume-reviewer";
 import { ResultShell } from "@/components/result-shell";
+import { useProfile } from "@/components/profile-provider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -21,21 +22,10 @@ import type {
   UserProfile,
 } from "@/types";
 
-const initialProfile: UserProfile = {
-  currentRole: "Support Engineer",
-  targetRole: "Frontend Developer",
-  experienceLevel: "Intermediate",
-  skills: ["JavaScript", "CSS", "Customer empathy"],
-  yearsOfExperience: 2,
-  bio: "I solve user problems, untangle bugs, and want to move closer to product-building work.",
-};
-
 async function postJson<T>(url: string, body: unknown): Promise<T> {
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
@@ -47,7 +37,7 @@ async function postJson<T>(url: string, body: unknown): Promise<T> {
 }
 
 export function DashboardClient() {
-  const [profile, setProfile] = useState<UserProfile>(initialProfile);
+  const { profile, setProfile, profileReady } = useProfile();
   const [skillGap, setSkillGap] = useState<SkillGapResult | null>(null);
   const [roadmap, setRoadmap] = useState<RoadmapResult | null>(null);
   const [projects, setProjects] = useState<ProjectsResult | null>(null);
@@ -105,7 +95,7 @@ export function DashboardClient() {
             jobex maps your gap, your roadmap, your portfolio projects, your resume weak spots, and the emotional cost of a dramatic career pivot.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button onClick={generateAll} disabled={isPending}>
+            <Button onClick={generateAll} disabled={isPending || !profileReady}>
               <Wand2 className="mr-2 h-4 w-4" />
               Run full simulation
             </Button>

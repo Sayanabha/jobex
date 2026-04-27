@@ -4,22 +4,15 @@ import { useState, useTransition } from "react";
 import { ArrowUpRight, MessageSquareText, Send, Trophy } from "lucide-react";
 
 import { LoadingScene } from "@/components/loading-scene";
+import { useProfile } from "@/components/profile-provider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import type { InterviewEvaluationResult, InterviewPromptResult, InterviewTurn, UserProfile } from "@/types";
-
-const profile: UserProfile = {
-  currentRole: "Support Engineer",
-  targetRole: "Frontend Developer",
-  experienceLevel: "Intermediate",
-  skills: ["JavaScript", "CSS", "Customer empathy"],
-  yearsOfExperience: 2,
-  bio: "I solve user problems, untangle bugs, and want to move closer to product-building work.",
-};
+import type { InterviewEvaluationResult, InterviewPromptResult, InterviewTurn } from "@/types";
 
 export function InterviewClient() {
+  const { profile, profileReady, profileNote } = useProfile();
   const [chatHistory, setChatHistory] = useState<InterviewTurn[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<InterviewPromptResult | null>(null);
   const [evaluation, setEvaluation] = useState<InterviewEvaluationResult | null>(null);
@@ -31,9 +24,7 @@ export function InterviewClient() {
     startTransition(async () => {
       const response = await fetch("/api/interview", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           profile,
           chatHistory: nextHistory ?? chatHistory,
@@ -64,9 +55,7 @@ export function InterviewClient() {
 
   const submitAnswer = () => {
     const trimmed = answer.trim();
-    if (!trimmed || !currentQuestion) {
-      return;
-    }
+    if (!trimmed || !currentQuestion) return;
 
     const nextHistory: InterviewTurn[] = [
       ...chatHistory,
@@ -90,7 +79,12 @@ export function InterviewClient() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Button onClick={() => requestNextQuestion()} disabled={isPending}>
+          {profileNote ? (
+            <p className="text-sm text-accent">{profileNote}</p>
+          ) : (
+            <p className="text-sm text-muted-foreground">Loading your profile...</p>
+          )}
+          <Button onClick={() => requestNextQuestion()} disabled={isPending || !profileReady}>
             <MessageSquareText className="mr-2 h-4 w-4" />
             {currentQuestion ? "Ask next question" : "Start interview"}
           </Button>

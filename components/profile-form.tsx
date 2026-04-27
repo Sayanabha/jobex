@@ -15,7 +15,7 @@ import {
 import type { ExperienceLevel, UserProfile } from "@/types";
 
 const defaultProfile: UserProfile = {
-  currentRole: "Support Engineer",
+  currentRole: "Dotnet Engineer",
   targetRole: "Frontend Developer",
   experienceLevel: "Intermediate",
   skills: ["JavaScript", "CSS", "Customer empathy"],

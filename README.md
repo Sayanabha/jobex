@@ -86,7 +86,7 @@ types/
 
 ## AI implementation notes
 
-- All AI calls use `gemini-3.1-flash-lite-preview`
+- All AI calls use `gemini-2.5-flash`
 - Temperature is set to `0.4`
 - Responses are requested as JSON and validated with Zod
 - Each AI route has a fallback response for resilience

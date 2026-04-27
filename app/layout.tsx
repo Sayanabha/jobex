@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Space_Grotesk } from "next/font/google";
 
+import { ProfileProvider } from "@/components/profile-provider";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${spaceGrotesk.variable} ${sourceSans.variable} bg-background font-body text-foreground antialiased`}>
-        {children}
+        <ProfileProvider>
+          {children}
+        </ProfileProvider>
       </body>
     </html>
   );
