@@ -17,7 +17,7 @@ export function ResultShell({
   children: React.ReactNode;
 }) {
   return (
-    <Card className="h-full border-white/10">
+    <Card className="h-full border-border">
       <CardHeader>
         <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Sparkles className="h-5 w-5" />

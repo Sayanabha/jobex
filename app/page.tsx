@@ -16,7 +16,7 @@ export default function HomePage() {
       <section className="container grid gap-16 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <div className="animate-fade-up">
           <Badge className="mb-6 bg-primary/10 text-primary">AI-powered career path simulator</Badge>
-          <h1 className="max-w-3xl font-display text-5xl font-semibold tracking-tight text-white md:text-7xl">
+          <h1 className="max-w-3xl font-display text-5xl font-semibold tracking-tight text-foreground md:text-7xl">
             Career planning, simplified.
           </h1>
           <p className="mt-6 max-w-2xl text-balance text-xl text-muted-foreground">
@@ -40,7 +40,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 text-primary" />
-              Interview coming up? We’ve got you.
+              Interview coming up? We've got you.
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -48,7 +48,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle2 className="h-5 w-5 text-primary" />
-              Not sure what’s next? Start here.
+              Not sure what's next? Start here.
             </div>
           </div>
         </div>
@@ -57,10 +57,10 @@ export default function HomePage() {
           <div className="absolute inset-x-6 bottom-6 rounded-[32px] border border-white/10 bg-background/80 p-6 shadow-glow backdrop-blur-xl">
             <div className="flex items-center gap-2 text-primary">
               <Sparkles className="h-4 w-4" />
-              <p className="text-sm font-medium">Today’s reality check</p>
+              <p className="text-sm font-medium">Today's reality check</p>
             </div>
-            <p className="mt-3 font-display text-2xl text-white">
-              “You don’t need a reboot... just a tighter story and receipts”
+            <p className="mt-3 font-display text-2xl text-foreground">
+              "You don't need a reboot... just a tighter story and receipts"
             </p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-primary">Inside the MVP</p>
-            <h2 className="mt-3 font-display text-3xl font-semibold text-white md:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-semibold text-foreground md:text-4xl">
               Five strategic engines. Zero generic chatbot energy.
             </h2>
           </div>
@@ -84,13 +84,13 @@ export default function HomePage() {
 
       <section className="container pb-24">
         <div className="grid gap-6 lg:grid-cols-[1fr_1.05fr]">
-          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+          <div className="rounded-[32px] border border-border bg-card p-8">
             <p className="text-sm uppercase tracking-[0.25em] text-primary">Sign in</p>
-            <h3 className="mt-3 font-display text-3xl font-semibold text-white">
+            <h3 className="mt-3 font-display text-3xl font-semibold text-foreground">
               Save your profile, your simulations, and your dignity.
             </h3>
             <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-              Email magic link, Google OAuth, or GitHub OAuth. Because friction is not a personality trait.
+              Email magic link or password. Because friction is not a personality trait.
             </p>
           </div>
           <AuthPanel />

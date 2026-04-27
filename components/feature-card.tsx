@@ -12,7 +12,7 @@ export function FeatureCard({
   icon: LucideIcon;
 }) {
   return (
-    <Card className="h-full border-white/10 transition hover:-translate-y-1 hover:border-primary/40">
+    <Card className="h-full border-border transition hover:-translate-y-1 hover:border-primary/40">
       <CardHeader>
         <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Icon className="h-6 w-6" />

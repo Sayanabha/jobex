@@ -70,7 +70,7 @@ export function InterviewClient() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-      <Card className="border-white/10">
+      <Card className="border-border">
         <CardHeader>
           <Badge className="mb-3 w-fit bg-primary/10 text-primary">Mock interview</Badge>
           <CardTitle>Practice like the job is real, because eventually it will be.</CardTitle>
@@ -100,9 +100,9 @@ export function InterviewClient() {
               ]}
             />
           ) : null}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+          <div className="rounded-3xl border border-border bg-muted p-5">
             <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Current question</p>
-            <p className="mt-3 font-display text-2xl">
+            <p className="mt-3 font-display text-2xl text-foreground">
               {currentQuestion?.current_question ?? "Press start and jobex will politely begin judging your career storytelling."}
             </p>
             {currentQuestion ? (
@@ -125,7 +125,7 @@ export function InterviewClient() {
       </Card>
 
       <div className="space-y-6">
-        <Card className="border-white/10">
+        <Card className="border-border">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Trophy className="h-5 w-5 text-primary" />
@@ -144,7 +144,7 @@ export function InterviewClient() {
                 <p className="text-sm text-muted-foreground">{evaluation.feedback}</p>
                 <div className="space-y-3">
                   {evaluation.improvements.map((item) => (
-                    <div key={item} className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div key={item} className="flex gap-3 rounded-2xl border border-border bg-muted p-4">
                       <ArrowUpRight className="mt-0.5 h-4 w-4 text-primary" />
                       <p className="text-sm text-muted-foreground">{item}</p>
                     </div>
@@ -157,7 +157,7 @@ export function InterviewClient() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/10">
+        <Card className="border-border">
           <CardHeader>
             <CardTitle>Conversation trail</CardTitle>
             <CardDescription>Because your best answer rarely arrives on the first dramatic attempt.</CardDescription>
@@ -165,7 +165,7 @@ export function InterviewClient() {
           <CardContent className="space-y-3">
             {chatHistory.length ? (
               chatHistory.map((turn, index) => (
-                <div key={`${turn.role}-${index}`} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div key={`${turn.role}-${index}`} className="rounded-2xl border border-border bg-muted p-4">
                   <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{turn.role}</p>
                   <p className="mt-2 text-sm text-foreground">{turn.content}</p>
                 </div>

@@ -20,12 +20,8 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
   const [isPending, startTransition] = useTransition();
 
   const sourceLabel = useMemo(() => {
-    if (file) {
-      return file.name;
-    }
-    if (resumeText.trim()) {
-      return "Pasted resume text";
-    }
+    if (file) return file.name;
+    if (resumeText.trim()) return "Pasted resume text";
     return "No resume loaded yet";
   }, [file, resumeText]);
 
@@ -37,12 +33,8 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
       try {
         const formData = new FormData();
         formData.append("profile", JSON.stringify(profile));
-        if (file) {
-          formData.append("file", file);
-        }
-        if (resumeText.trim()) {
-          formData.append("resumeText", resumeText.trim());
-        }
+        if (file) formData.append("file", file);
+        if (resumeText.trim()) formData.append("resumeText", resumeText.trim());
 
         const response = await fetch("/api/resume-review", {
           method: "POST",
@@ -50,20 +42,16 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
         });
 
         const raw = await response.text();
-        let result: {
+        type ReviewResponse = {
           data?: ResumeReviewResult;
           fallback?: boolean;
           provider?: "gemini" | "groq" | "local";
           error?: string;
-        } | null = null;
+        };
+        let result: ReviewResponse | null = null;
 
         try {
-          result = JSON.parse(raw) as {
-            data?: ResumeReviewResult;
-            fallback?: boolean;
-            provider?: "gemini" | "groq" | "local";
-            error?: string;
-          };
+          result = JSON.parse(raw) as ReviewResponse;
         } catch {
           throw new Error(
             response.ok
@@ -90,7 +78,7 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
   };
 
   return (
-    <Card className="border-white/10">
+    <Card className="border-border">
       <CardHeader>
         <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <FileText className="h-5 w-5" />
@@ -104,7 +92,7 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
         <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <label className="space-y-2 text-sm">
             <span className="text-muted-foreground">Resume file</span>
-            <div className="rounded-3xl border border-dashed border-white/15 bg-white/5 p-4">
+            <div className="rounded-3xl border border-dashed border-border bg-muted p-4">
               <Input
                 type="file"
                 accept=".pdf,.docx,.txt"
@@ -148,15 +136,15 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
         ) : null}
 
         {note ? <p className="text-sm text-accent">{note}</p> : null}
-        {error ? <p className="text-sm text-rose-300">{error}</p> : null}
+        {error ? <p className="text-sm text-rose-500">{error}</p> : null}
 
         {review ? (
           <div className="space-y-5">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+            <div className="rounded-3xl border border-border bg-muted p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Resume score</p>
-                  <p className="mt-2 font-display text-4xl text-white">{review.overall_score}/100</p>
+                  <p className="mt-2 font-display text-4xl text-foreground">{review.overall_score}/100</p>
                 </div>
                 <Badge className="bg-primary/10 text-primary">{sourceLabel}</Badge>
               </div>
@@ -164,16 +152,16 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
             </div>
 
             <div className="grid gap-4 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <h4 className="font-display text-xl">What's working</h4>
+              <div className="rounded-3xl border border-border bg-muted p-5">
+                <h4 className="font-display text-xl text-foreground">What's working</h4>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {review.strengths.map((item) => (
                     <Badge key={item}>{item}</Badge>
                   ))}
                 </div>
               </div>
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <h4 className="font-display text-xl">Needs improvement</h4>
+              <div className="rounded-3xl border border-border bg-muted p-5">
+                <h4 className="font-display text-xl text-foreground">Needs improvement</h4>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {review.weak_spots.map((item) => (
                     <Badge key={item}>{item}</Badge>
@@ -182,8 +170,8 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-              <h4 className="font-display text-xl">Missing for the target role</h4>
+            <div className="rounded-3xl border border-border bg-muted p-5">
+              <h4 className="font-display text-xl text-foreground">Missing for the target role</h4>
               <div className="mt-4 flex flex-wrap gap-2">
                 {review.missing_for_target_role.map((item) => (
                   <Badge key={item}>{item}</Badge>
@@ -191,12 +179,12 @@ export function ResumeReviewer({ profile }: { profile: UserProfile }) {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-              <h4 className="font-display text-xl">Rewrite suggestions</h4>
+            <div className="rounded-3xl border border-border bg-muted p-5">
+              <h4 className="font-display text-xl text-foreground">Rewrite suggestions</h4>
               <div className="mt-4 space-y-3">
                 {review.rewrite_suggestions.map((item) => (
-                  <div key={`${item.section}-${item.issue}`} className="rounded-2xl border border-white/10 bg-background/40 p-4">
-                    <p className="font-medium text-white">{item.section}</p>
+                  <div key={`${item.section}-${item.issue}`} className="rounded-2xl border border-border bg-background p-4">
+                    <p className="font-medium text-foreground">{item.section}</p>
                     <p className="mt-2 text-sm text-muted-foreground">Issue: {item.issue}</p>
                     <p className="mt-2 text-sm text-primary">Fix: {item.fix}</p>
                   </div>

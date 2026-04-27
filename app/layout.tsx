@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 import { ProfileProvider } from "@/components/profile-provider";
 import "./globals.css";
@@ -25,11 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${sourceSans.variable} bg-background font-body text-foreground antialiased`}>
-        <ProfileProvider>
-          {children}
-        </ProfileProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <ProfileProvider>
+            {children}
+          </ProfileProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -61,9 +61,7 @@ export function ProfileForm({
         return;
       }
 
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser();
 
       if (!user) {
         setStatus("Not signed in yet, so your profile is living its best temporary life in the browser.");
@@ -117,9 +115,7 @@ export function ProfileForm({
 
     commitSkillsDraft();
     setSaving(true);
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
       setStatus("Sign in first and then we can store this brilliance somewhere permanent.");
@@ -146,7 +142,7 @@ export function ProfileForm({
   };
 
   return (
-    <Card className="border-white/10">
+    <Card className="border-border">
       <CardHeader>
         <CardTitle>Your Career Snapshot</CardTitle>
         <CardDescription>{status}</CardDescription>
@@ -182,12 +178,12 @@ export function ProfileForm({
         <label className="space-y-2 text-sm">
           <span className="text-muted-foreground">Experience level</span>
           <select
-            className="flex h-11 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-sm"
+            className="flex h-11 w-full rounded-2xl border border-border bg-background px-4 text-sm text-foreground"
             value={profile.experienceLevel}
             onChange={(event) => updateProfile("experienceLevel", event.target.value as ExperienceLevel)}
           >
             {["Beginner", "Intermediate", "Advanced"].map((level) => (
-              <option key={level} value={level} className="bg-slate-950">
+              <option key={level} value={level}>
                 {level}
               </option>
             ))}
